@@ -3,7 +3,7 @@ layout: post
 title: Raspberry Pi running debian jessie 
 ---
  
- **static wireless and wired ip addresses**
+ **static wireless and wired ip addresses** :metal:
  
 ![an image alt text]({{ site.baseurl }}/images/first-post.png "an image title")
 
