@@ -99,13 +99,13 @@ Alt-x to quit
 
 sudo reboot  #to restart pi
 
-iwconfig 
-This will identify if the wifi has connected to your network if it displays ESSID = "your network"
+**iwconfig** 
+This will help identify that the wifi has connected to your network. If it displays ESSID = "your network" you are a winner
 
-netstat -nr 
+**netstat -nr** 
 This is a good way to check which IP addresses have been configured on the PI
 
-ifconfig 
+**ifconfig** 
 This is another network command that works well to see your network card configuration and if it is functioning.
 
  
