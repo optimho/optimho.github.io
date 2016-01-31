@@ -74,14 +74,23 @@ iface eth0 inet manual
 
 
 allow-hotplug wlan0
+
 auto wlan0
+
 iface wlan0 inet static
+
 address 192.168.2.30
+
 netmask 255.255.255.0
+
 broadcast 192.168.2.255
+
 gateway 192.168.2.1
+
 wpa-ssid "your network router name"
+
 wpa-psk "password"
+
 
 
 
