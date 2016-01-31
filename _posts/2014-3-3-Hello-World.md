@@ -3,8 +3,8 @@ layout: post
 title: Raspberry Pi running debian jessie 
 ---
  
- static wireless ip addresses 
-
+ **static wireless and wired ip addresses**
+![an image alt text]({{ site.baseurl }}/images/jekyll-logo.png "an image title")
 Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
 
   type the fillowing command:
