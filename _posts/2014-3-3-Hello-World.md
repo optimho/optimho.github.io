@@ -63,6 +63,7 @@ iface wlan0 inet static
  
 
 wpa-ssid "your network name"
+
 wpa-psk "your network pass word"
 
 #--------------------------------------------
