@@ -32,42 +32,41 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
   The IP address that you choose must be in the same range of your wireless IP address gateway 192.168.2.(2-254)
   leave address 0 , 1 and 255 alone as they have been used already 16 too in my case.
 
+
+sudo nano /etc/dhcpcd.conf
+
+interface eth0
+static ip_address=192.168.2.29/24
+static routers=192.168.2.1
+static domain_name_servers=192.168.2.1
+
+Alt-o to save
+Alt-x to quit
+
+This will make eth0 (the wired ethernet port) static
+
+then: 
+
 sudo nano /etc/network/interfaces
 
 #-----------------------------------------
 auto lo
 iface lo inet loopback
 
-iface eth0 inet static
+auto eth0
+allow-hotplug eth0
+iface eth0 inet manual
 
- address 192.168.2.29
- 
- netmask 255.255.255.0
- 
- network 192.168.2.0
- 
- broadcast 192.168.2.255
- 
- gateway 192.168.2.1
- 
- 
+
 allow-hotplug wlan0
 auto wlan0
-
 iface wlan0 inet static
-
- address 192.168.2.30
- 
- netmask 255.255.255.0
- 
- broadcast 192.168.2.255
- 
- gateway 192.168.2.1
- 
-
-wpa-ssid "your network name"
-
-wpa-psk "your network pass word"
+address 192.168.2.30
+netmask 255.255.255.0
+broadcast 192.168.2.255
+gateway 192.168.2.1
+wpa-ssid "your network router name"
+wpa-psk "password"
 
 #--------------------------------------------
 
