@@ -44,9 +44,13 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
 sudo nano /etc/dhcpcd.conf
 
 interface eth0
+
 static ip_address=192.168.2.29/24
+
 static routers=192.168.2.1
+
 static domain_name_servers=192.168.2.1
+
 
 Alt-o to save
 Alt-x to quit
@@ -57,12 +61,15 @@ then:
 
 sudo nano /etc/network/interfaces
 
-#-----------------------------------------
 auto lo
+
 iface lo inet loopback
 
+
 auto eth0
+
 allow-hotplug eth0
+
 iface eth0 inet manual
 
 
@@ -76,7 +83,6 @@ gateway 192.168.2.1
 wpa-ssid "your network router name"
 wpa-psk "password"
 
-#--------------------------------------------
 
 
 Alt-o to save
