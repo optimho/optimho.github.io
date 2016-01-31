@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-umm about my self, I live in New Zealand.
+umm about my self.
 
 
 ### Contact me
