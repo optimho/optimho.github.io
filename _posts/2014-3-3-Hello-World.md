@@ -82,3 +82,4 @@ This is a good way to check which IP addresses have been configured on the PI
 ifconfig 
 This is another network command that works well to see your network card configuration and if it is functioning.
 
+ 
