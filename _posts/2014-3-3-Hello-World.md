@@ -36,20 +36,21 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
 
  To see what networks are available run the following command.
  
- sudo iwlist wlan0 scan | grep ESSID
+ **sudo iwlist wlan0 scan | grep ESSID**
+ 
  I think that this command will work if raspbian recognises the wireless adapter, even if it is not properly configured yet,  so can   be used as a method to see if you wireless adapter is working and that the operating system recognises the adapter.  
  
  then:
  
-sudo nano /etc/dhcpcd.conf
+**sudo nano /etc/dhcpcd.conf**
 
-interface eth0
+_interface eth0_
 
-static ip_address=192.168.2.29/24
+_static ip_ _address_ _=192.168.2.29/24_
 
-static routers=192.168.2.1
+_static routers=192.168.2.1_
 
-static domain_name_servers=192.168.2.1
+_static domain_name_servers=192.168.2.1_
 
 
 Alt-o to save
