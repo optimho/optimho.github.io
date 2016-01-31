@@ -5,7 +5,7 @@ title: Raspberry Pi running debian jessie
  
  **static wireless and wired ip addresses**
  
-![an image alt text]({{ site.baseurl }}/images/eye.png "an image title")
+![an image alt text]({{ site.baseurl }}/images/ethernet_transperant.png "an image title")
 
 Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
 
