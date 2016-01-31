@@ -61,37 +61,34 @@ then:
 
 sudo nano /etc/network/interfaces
 
-auto lo
+_auto lo_
 
-iface lo inet loopback
-
-
-auto eth0
-
-allow-hotplug eth0
-
-iface eth0 inet manual
+_iface lo inet loopback_
 
 
-allow-hotplug wlan0
+_auto eth0_
 
-auto wlan0
+_allow-hotplug eth0_
 
-iface wlan0 inet static
+_iface eth0 inet manual_
 
-address 192.168.2.30
+_allow-hotplug wlan0_
 
-netmask 255.255.255.0
+_auto wlan0_
 
-broadcast 192.168.2.255
+_iface wlan0 inet static_
 
-gateway 192.168.2.1
+_address 192.168.2.30_
 
-wpa-ssid "your network router name"
+_netmask 255.255.255.0_
 
-wpa-psk "password"
+_broadcast 192.168.2.255_
 
+_gateway 192.168.2.1_
 
+_wpa-ssid "your network router name"_
+
+_wpa-psk "password"_
 
 
 Alt-o to save
