@@ -1,5 +1,5 @@
 Raspberry Pi running debian jessie 
- static wireless and static wired ip addresses
+ static wireless ip addresses
 ---
 
 Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
@@ -36,21 +36,32 @@ auto lo
 iface lo inet loopback
 
 iface eth0 inet static
+
  address 192.168.2.29
+ 
  netmask 255.255.255.0
+ 
  network 192.168.2.0
+ 
  broadcast 192.168.2.255
+ 
  gateway 192.168.2.1
+ 
  
 allow-hotplug wlan0
 auto wlan0
 
 iface wlan0 inet static
+
  address 192.168.2.30
+ 
  netmask 255.255.255.0
+ 
  broadcast 192.168.2.255
+ 
  gateway 192.168.2.1
  
+
 wpa-ssid "your network name"
 wpa-psk "your network pass word"
 
