@@ -1,4 +1,7 @@
-Raspberry Pi running debian jessie 
+---
+layout: post
+title: Raspberry Pi running debian jessie 
+---
  
  static wireless ip addresses
 
