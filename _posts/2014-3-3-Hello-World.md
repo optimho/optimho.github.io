@@ -53,8 +53,8 @@ _static routers=192.168.2.1_
 _static domain_name_servers=192.168.2.1_
 
 
-Alt-o to save
-Alt-x to quit
+ctrl-o to save
+ctrl-x to quit
 
 This will make eth0 (the wired ethernet port) static
 
