@@ -1,4 +1,3 @@
-
 ---
 layout: post
 title: Change hostname on raspberry Pi running jessie
