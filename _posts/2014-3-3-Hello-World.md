@@ -44,6 +44,8 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
  
 **sudo nano /etc/dhcpcd.conf**
 
+add this at the end of the file leave all other settings as they are
+
 _interface eth0_
 
 _static ip__ _address_ _=192.168.2.29/24_
