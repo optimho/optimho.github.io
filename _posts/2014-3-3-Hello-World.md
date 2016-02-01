@@ -46,7 +46,7 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
 
 _interface eth0_
 
-_static ip_ _address_ _=192.168.2.29/24_
+_static ip__ _address_ _=192.168.2.29/24_
 
 _static routers=192.168.2.1_
 
