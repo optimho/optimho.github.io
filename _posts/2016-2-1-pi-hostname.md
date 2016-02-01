@@ -1,7 +1,7 @@
 
 ---
 layout: post
-title: Change your Raspberry Pi hostname 
+title: Change hostname on raspberry Pi running jessie
 ---
 
 ![an image alt text]({{ site.baseurl }}/images/raspberry.png "an image title")
