@@ -1,6 +1,6 @@
 
 ---
-layout: default
+layout: post
 title: Change your Raspberry Pi hostname 
 ---
 
