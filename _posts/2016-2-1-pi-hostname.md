@@ -2,11 +2,14 @@
 ---
 layout: default
 title: Change your Raspberry Pi hostname 
+![an image alt text]({{ site.baseurl }}/images/ethernet_transparent.png "an image title")
 ---
 
 
  root@debian:~# hostnamectl set-hostname dlp
 # show settings
+
+![an image alt text]({{ site.baseurl }}/images/ethernet_transparent.png "an image title")
 
 root@debian:~# hostnamectl
 
