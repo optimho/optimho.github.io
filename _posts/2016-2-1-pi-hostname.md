@@ -2,8 +2,9 @@
 ---
 layout: default
 title: Change your Raspberry Pi hostname 
-![an image alt text]({{ site.baseurl }}/images/raspberry.png "an image title")
 ---
+
+![an image alt text]({{ site.baseurl }}/images/raspberry.png "an image title")
 
 **Change hostname**
 
