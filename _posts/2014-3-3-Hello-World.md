@@ -100,19 +100,29 @@ then:
 sudo nano /etc/wpa_suplicant/wpa_suplicant.conf
 
 ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+
 update_config=1
 
 network={
+
         ssid="name of wireless ssid"
+        
         psk="password or key"
+        
         key_mgmt=WPA-PSK
+        
 }
 
 network={
+
         ssid="alternative connection ssid"
+        
         psk="password or key"
+        
         key_mgmt=WPA-PSK
+        
 }
+
 
 ctrl-o to save
 ctrl-x to quit
