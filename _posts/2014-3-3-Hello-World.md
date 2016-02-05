@@ -42,7 +42,7 @@ Using a realtek EDIMAX usb to wifi adapter is a recomended wifi adapter.
  
  then:
  
-**sudo nano /etc/dhcpcd.conf**
+{**sudo nano /etc/dhcpcd.conf**}
 
 add this at the end of the file leave all other settings as they are
 
@@ -55,8 +55,8 @@ _static routers=192.168.2.1_
 _static domain\_name\_servers_=192.168.2.1_
 
 
-ctrl-o to save
-ctrl-x to quit
+{ctrl-o to save}
+{ctrl-x to quit}
 
 This will make eth0 (the wired ethernet port) static
 
@@ -94,13 +94,14 @@ wpa-conf /etc/wpa\_supplicant/wpa\_supplicant.conf
 
 
 {ctrl-o to save}
+
 {ctrl-x to quit}
 
 
 
 **then:** 
 
-sudo nano /etc/wpa\_suplicant/wpa\_suplicant.conf
+{**sudo nano /etc/wpa\_suplicant/wpa\_suplicant.conf**}
 
 ctrl\_interface=DIR=/var/run/wpa\_supplicant GROUP=netdev
 
@@ -127,8 +128,9 @@ network={
 }
 
 
-ctrl-o to save
-ctrl-x to quit
+{ctrl-o to save}
+
+{ctrl-x to quit}
 
 sudo reboot  #to restart pi
 
