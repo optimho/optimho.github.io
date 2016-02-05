@@ -48,11 +48,11 @@ add this at the end of the file leave all other settings as they are
 
 _interface eth0_
 
-_static ip__ _address_ _=192.168.2.29/24_
+_static ip\_address_=192.168.2.29/24_
 
 _static routers=192.168.2.1_
 
-_static domain__name__servers=192.168.2.1_
+_static domain\_name\_servers_=192.168.2.1_
 
 
 ctrl-o to save
@@ -100,9 +100,9 @@ ctrl-x to quit
 
 **then:** 
 
-sudo nano /etc/wpa__suplicant/wpa__suplicant.conf
+sudo nano /etc/wpa\_suplicant/wpa\_suplicant.conf
 
-ctrl__interface=DIR=/var/run/wpa__supplicant GROUP=netdev
+ctrl\_interface=DIR=/var/run/wpa\_supplicant GROUP=netdev
 
 update_config=1
 
