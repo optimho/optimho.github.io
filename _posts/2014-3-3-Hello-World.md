@@ -93,8 +93,8 @@ _gateway 192.168.2.1_
 wpa-conf /etc/wpa\_supplicant/wpa\_supplicant.conf
 
 
-ctrl-o to save
-ctrl-x to quit
+{ctrl-o to save}
+{ctrl-x to quit}
 
 
 
