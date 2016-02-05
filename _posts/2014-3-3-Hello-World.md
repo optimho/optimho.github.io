@@ -52,7 +52,7 @@ _static ip__ _address_ _=192.168.2.29/24_
 
 _static routers=192.168.2.1_
 
-_static domain_name_servers=192.168.2.1_
+_static domain__name__servers=192.168.2.1_
 
 
 ctrl-o to save
@@ -62,7 +62,7 @@ This will make eth0 (the wired ethernet port) static
 
 then: 
 
-sudo nano /etc/network/interfaces
+**sudo nano /etc/network/interfaces**
 
 _auto lo_
 
@@ -74,6 +74,7 @@ _auto eth0_
 _allow-hotplug eth0_
 
 _iface eth0 inet manual_
+
 
 _allow-hotplug wlan0_
 
@@ -89,9 +90,7 @@ _broadcast 192.168.2.255_
 
 _gateway 192.168.2.1_
 
-_wpa-ssid "your network router name"_
-
-_wpa-psk "password"_
+wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
 
 
 ctrl-o to save
