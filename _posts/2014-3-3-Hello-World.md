@@ -90,17 +90,19 @@ _broadcast 192.168.2.255_
 
 _gateway 192.168.2.1_
 
-wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+wpa-conf /etc/wpa__supplicant/wpa__supplicant.conf
 
 
 ctrl-o to save
 ctrl-x to quit
 
-then: 
 
-sudo nano /etc/wpa_suplicant/wpa_suplicant.conf
 
-ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+**then:** 
+
+sudo nano /etc/wpa__suplicant/wpa__suplicant.conf
+
+ctrl__interface=DIR=/var/run/wpa__supplicant GROUP=netdev
 
 update_config=1
 
