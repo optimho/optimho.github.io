@@ -64,6 +64,8 @@ then:
 
 **sudo nano /etc/network/interfaces**
 
+
+
 _auto lo_
 
 _iface lo inet loopback_
@@ -102,6 +104,8 @@ wpa-conf /etc/wpa\_supplicant/wpa\_supplicant.conf
 **then:** 
 
 {**sudo nano /etc/wpa\_suplicant/wpa\_suplicant.conf**}
+
+
 
 ctrl\_interface=DIR=/var/run/wpa\_supplicant GROUP=netdev
 
