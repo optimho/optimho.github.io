@@ -1,0 +1,663 @@
+
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+By Adrian Rosebrock on July 27, 2015 in OpenCV 3, Tutorials
+0
+13
+
+rpi_py2_face_detection
+
+Honestly, I love the Raspberry Pi for teaching computer vision — it is perhaps one of the best teaching tools to expose programmers, developers, and students to the world of computer vision.
+
+It’s great for hobbyists and garage-room hackers, as you get to learn on a cheap, but super fun piece of hardware. It’s awesome for businesses and products as they can deploy computer vision algorithms on cost-affordable and reliable hardware. The Raspberry Pi is also certainly prevalent in research and academia. Given its lost-cost, we can now undertake large-scale, distributed computer vision research projects using a fleet of Raspberry Pis.
+
+Given these benefits and applicability to a wide variety of domains, it’s perhaps comes as no surprise that my tutorial on installing OpenCV and Python on your Raspberry Pi 2 and B+ is still one of the most popular posts on the PyImageSearch blog.
+
+But today, that’s going to change — because I think this blog post will over take its predecessor become the most popular article on the PyImageSearch blog.
+
+You see, we’re going to take a step forward and learn how to install the (just released) OpenCV 3.0 library for both Python 2.7 and Python 3+ on your Raspberry Pi.
+
+That’s right. By the end of this step-by-step guide you’ll have the brand new OpenCV 3.0 library installed on your Raspberry Pi 2, along with either Python 2.7+ or Python 3+ bindings. This is definitely an exciting tutorial — up until now only Python 2.7 was supported by OpenCV. But now given the OpenCV 3.0 release, we can finally utilize Python 3+ in our projects.
+
+And as you have seen elsewhere on the PyImageSearch blog, being able to utilize OpenCV on the Raspberry Pi has lead to be really great projects, such as an automated home surveillance and security system using Python + OpenCV + Dropbox + a Raspberry Pi 2:
+
+Figure 7: Examples of the Raspberry Pi home surveillance system detecting motion in video frames and uploading them to my personal Dropbox account.
+
+So if you’re interested in building awesome computer vision based projects like this, then follow along with me and we’ll have OpenCV 3.0 with Python bindings installed on your Raspberry Pi 2 in no time.
+Install OpenCV 3.0 for both Python 2.7+ and Python 3+ on your Raspberry Pi 2
+
+UPDATE: The tutorial you are reading now covers how to install OpenCV 3 with Python 2.7 and Python 3 bindings on Raspbian Wheezy. This tutorial works perfectly, but if you are looking to install OpenCV 2.4 on Raspbian Wheezy or OpenCV 3 on Raspbian Jessie, please see these tutorials:
+
+    Install OpenCV 2.4 for Python 2.7 on Raspbian Wheezy.
+    How to install OpenCV 3.0 on Raspbian Jessie.
+    Install guide: Raspberry Pi 3 + Raspbian Jessie + OpenCV 3.
+
+The rest of this blog post will detail how to install OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2. These install instructions could also be used for the B+, but I highly recommend that you use the Pi 2 for running OpenCV applications — the added speed and memory makes the Pi 2 much more suitable for computer vision.
+
+In order to keep this tutorial concise and organized, I have broken down the OpenCV 3.0 install process into four sections:
+
+    Section 1: Configuring your Raspberry Pi by installing the required packages and libraries. Regardless of whether you are using Python 2.7 or Python 3+, we need to take some steps in order to prepare our Raspberry Pi for OpenCV 3.0 — these steps are mainly calls to apt-get  , followed by installing the required packages and libraries.
+    Section 2: Compiling OpenCV 3.0 with Python 2.7+ support. If you want to install OpenCV 3.0 with Python 2.7+ bindings on your Raspberry Pi, then this is the section that you’ll want to go to. After you complete this section,  skip Section 3 and head right to Section 4.
+    Section 3: Compiling OpenCV 3.0 with Python 3+ support. Similarly, if you want to install OpenCV 3.0 with Python 3+ bindings on your Pi 2, then complete Section 1 and skip right to Section 3.
+    Section 4: Verifying your OpenCV 3.0 install. After you have installed OpenCV 3.0 with Python support on your Raspberry Pi 2, you’ll want to confirm that is is indeed installed correctly and working as expected. This section will show you how to verify your OpenCV 3.0 install and ensure it’s working correctly.
+
+Python 2.7+ or Python 3+?
+
+Before we get started, take a second and consider which version of Python you are going to use. Are you going to compile OpenCV 3.0 with Python 2.7 bindings? Or are you going to compile OpenCV 3.0 Python 3 bindings?
+
+There are pros and cons of each, but the choice is honestly up to you. If you use Python 3 regularly and are comfortable with it, then go ahead and compile with Python 3 bindings. However, if you do a lot of scientific Python development, you might want to stick with Python 2.7 (for the time being at least). While packages such as NumPy, Scipy, and scikit-learn are certainly increasing the Python 3+ adoption rate in the scientific community, there are still many scientific packages that still require Python 2.7 — because of this, you can easily pigeonhole yourself if you go with Python 3 and then realize that many of the packages you use on a daily basis only support Python 2.7.
+
+When in doubt, I normally suggest that scientific developers use Python 2.7 since it ensures capability with a larger set of scientific packages and allows you to run experiments with legacy code. However, that is quickly changing — so proceed with whichever Python version you are most comfortable with!
+Section 1: Configuring your Raspberry Pi by installing required packages and libraries
+
+Let’s kick off this OpenCV 3.0 install tutorial by updating our Raspberry Pi:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo rpi-update
+1
+2
+3
+	
+$ sudo apt-get update
+$ sudo apt-get upgrade
+$ sudo rpi-update
+
+Timing: 9m 5s
+
+Now we can install developer tools required to build OpenCV from source:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install build-essential git cmake pkg-config
+1
+	
+$ sudo apt-get install build-essential git cmake pkg-config
+
+Timing: 43s
+
+As well as install packages used to load various image formats from disk:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+1
+	
+$ sudo apt-get install libjpeg8-dev libtiff4-dev libjasper-dev libpng12-dev
+
+Timings: 27s
+
+Let’s install some video I/O packages:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+1
+	
+$ sudo apt-get install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
+
+Timings: 26s
+
+Install GTK, which handles OpenCV’s GUI operations:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install libgtk2.0-dev
+1
+	
+$ sudo apt-get install libgtk2.0-dev
+
+Timings: 2m 20s
+
+We can also optimize various functions (such as matrix operations) inside OpenCV by installing these packages:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install libatlas-base-dev gfortran
+1
+	
+$ sudo apt-get install libatlas-base-dev gfortran
+
+Timings: 46s
+
+At this point we have all our prerequisites installed, so let’s pull down the OpenCV repository from GitHub and checkout the 3.0.0  version:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~
+$ git clone https://github.com/Itseez/opencv.git
+$ cd opencv
+$ git checkout 3.0.0
+1
+2
+3
+4
+	
+$ cd ~
+$ git clone https://github.com/Itseez/opencv.git
+$ cd opencv
+$ git checkout 3.0.0
+
+Timings: 8m 34s
+
+Update (3 January 2016): You can replace the 3.0.0  version with whatever the current release is (as of right now, it’s 3.1.0 ). Be sure to check OpenCV.org for information on the latest release.
+
+For the full, complete install of OpenCV 3.0, grab the opencv_contrib repo as well:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~
+$ git clone https://github.com/Itseez/opencv_contrib.git
+$ cd opencv_contrib
+$ git checkout 3.0.0
+1
+2
+3
+4
+	
+$ cd ~
+$ git clone https://github.com/Itseez/opencv_contrib.git
+$ cd opencv_contrib
+$ git checkout 3.0.0
+
+Timings: 1m 7s
+
+Again, make sure that you checkout the same version for opencv_contrib  that you did for opencv  above, otherwise you could run into compilation errors.
+
+Now we’re at at a crossroads, a sort of Choose Your Own (OpenCV) Adventure!
+
+You can either follow Section 2 and compile OpenCV 3.0 with Python 2.7+ bindings. Or you can head to Section 3 and install OpenCV 3.0 with Python 3+ bindings. The choice is up to you — but choose wisely! Once you make the choice it will be non-trivial to change your mind later.
+
+Note: It’s certainly possible to install OpenCV 3.0 for both versions of Python (it’s actually not too hard), but it’s outside the scope of this tutorial; I’ll be sure to cover this technique in a future post.
+Section 2: Compiling OpenCV 3.0 with Python 2.7+ support
+
+Install the Python 2.7 header files so we can compile the OpenCV 3.0 bindings:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install python2.7-dev
+1
+	
+$ sudo apt-get install python2.7-dev
+
+Timings: 1m 20s
+
+Install pip , a Python package manager that is compatible with Python 2.7:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ sudo python get-pip.py
+1
+2
+	
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ sudo python get-pip.py
+
+Timings: 33s
+
+Just as we did in the original tutorial on installing OpenCV 2.4.X on your Raspberry Pi, we are going to utilize virtualenv and virtualenvwrapper which allow us to create separate Python environments for each of our Python projects. Installing virtualenv  and virtualenvwrapper  is certainly not a requirement when installing OpenCV and Python bindings; however, it’s a standard Python development practice, one that I highly recommend, and the rest of this tutorial will assume you are using them!
+
+Installing virtualenv  and virtualenvwrapper  is as simple as using the pip  command:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo pip install virtualenv virtualenvwrapper
+$ sudo rm -rf ~/.cache/pip
+1
+2
+	
+$ sudo pip install virtualenv virtualenvwrapper
+$ sudo rm -rf ~/.cache/pip
+
+Timings: 17s
+
+Next up, we need to update our ~/.profile  file by opening it up in your favorite editor and adding the following lines to the bottom of the file.
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+# virtualenv and virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+1
+2
+3
+4
+	
+# virtualenv and virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python2.7
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+And if your ~/.profile  file does not exist, create it.
+
+Now that your ~/.profile  file has been updated, you need to reload it so the changes take affect. To force a reload of the . profile , you can: logout and log back in; close your terminal and open up a new one; or the most simple solution is to use the source  command:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ source ~/.profile
+1
+	
+$ source ~/.profile
+
+Time to create the cv3  virtual environment where we’ll do our computer vision work:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ mkvirtualenv cv3
+1
+	
+$ mkvirtualenv cv3
+
+Timings: 19s
+
+If you ever need to access the cv3  virtual environment (such as after you logout or reboot your Pi), just source  your ~/.profile  file (to ensure it has been loaded) and use the workon  command:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ workon cv3
+1
+	
+$ workon cv3
+
+And your shell will be updated to only use packages in the cv3  virtual environment.
+
+Moving on, the only Python dependency we need is NumPy, so ensure that you are in the cv3  virtual environment and install NumPy:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ pip install numpy
+1
+	
+$ pip install numpy
+
+Timings 13m 47s
+
+While unlikely, I have seen instances where the .cache  directory gives a “Permission denied” error since we used the sudo  command to install pip . If that happens to you, just remove the .cache/pip  directory and re-install NumPy:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo rm -rf ~/.cache/pip/
+$ pip install numpy
+1
+2
+	
+$ sudo rm -rf ~/.cache/pip/
+$ pip install numpy
+
+Awesome, we’re making progress! You should now have NumPy installed on your Raspberry Pi in the cv3  virtual environment, as shown below:
+Figure 1: NumPy has been successfully installed into our virtual environment for Python 2.7+.
+
+Figure 1: NumPy has been successfully installed into our virtual environment for Python 2.7+.
+
+Note: Performing all these steps can be time consuming, so it’s perfectly normal to logout/reboot and come back later to finish the install. However, if you have logged out or rebooted your Pi then you will need to drop back into your cv3  virtual environment prior to moving on with this guide. If you do not, OpenCV 3.0 will not compile and install correctly and you’ll likely run into import errors.
+
+So I’ll say this again, before you run any other command, you’ll want to ensure that you are in the cv3  virtual environment:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ workon cv3
+1
+	
+$ workon cv3
+
+And once you are in cv3  virtual environment, you can use cmake  to setup the build:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~/opencv
+$ mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_C_EXAMPLES=ON \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D BUILD_EXAMPLES=ON ..
+1
+2
+3
+4
+5
+6
+7
+8
+9
+	
+$ cd ~/opencv
+$ mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_C_EXAMPLES=ON \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D BUILD_EXAMPLES=ON ..
+
+Update (3 January 2016): In order to build OpenCV 3.1.0 , you need to set -D INSTALL_C_EXAMPLES=OFF  (rather than ON ) in the cmake  command. There is a bug in the OpenCV v3.1.0 CMake build script that can cause errors if you leave this switch on. Once you set this switch to off, CMake should run without a problem.
+
+CMake will run for about 30 seconds, and after it has completed (assuming there are no errors), you’ll want to inspect the output, especially the Python 2 section:
+Figure 2: The output of CMake looks good -- OpenCV 3.0 will compile with Python 2.7 bindings using the Python interpreter and NumPy package associated with our virtual environment.
+
+Figure 2: The output of CMake looks good — OpenCV 3.0 will compile with Python 2.7 bindings using the Python interpreter and NumPy package associated with our virtual environment.
+
+The key here is to ensure that CMake has picked up on the Python 2.7 interpreter and numpy  package associated with the cv3  virtual environment.
+
+Secondly, be sure look at the packages path  configuration — this is the path to the directory where your OpenCV 3.0 bindings will be compiled and stored. From the output above, we can see that my OpenCV bindings will be stored in /usr/local/lib/python2.7/site-packages
+
+All that’s left now is to compile OpenCV 3.0:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ make -j4
+1
+	
+$ make -j4
+
+Where the 4 corresponds to the 4 cores on our Raspberry Pi 2.
+
+Timings: 65m 33s
+
+Assuming OpenCV has compiled without an error, you can now install it on your Raspberry Pi:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo make install
+$ sudo ldconfig
+1
+2
+	
+$ sudo make install
+$ sudo ldconfig
+
+At this point, OpenCV 3.0 has been installed on your Raspberry Pi 2 — there is just one more step to take.
+
+Remember how I mentioned the packages path  above?
+
+Take a second to investigate the contents of this directory, in my case /usr/local/lib/python2.7/site-packages/ :
+Figure 3: Our Python 2.7+ bindings for OpenCV 3.0 have been successfully installed on our system. The last step is to sym-link the cv2.so file into our virtual environment.
+
+Figure 3: Our Python 2.7+ bindings for OpenCV 3.0 have been successfully installed on our system. The last step is to sym-link the cv2.so file into our virtual environment.
+
+You should see a file named cv2.so , which is our actual Python bindings. The last step we need to take is sym-link the cv2.so  file into the site-packages  directory of our cv3  environment:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~/.virtualenvs/cv3/lib/python2.7/site-packages/
+$ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+1
+2
+	
+$ cd ~/.virtualenvs/cv3/lib/python2.7/site-packages/
+$ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+
+And there you have it! You have just compiled and installed OpenCV 3.0 with Python 2.7 bindings on your Raspberry Pi! 
+
+Proceed to Section 4 to verify that your OpenCV 3.0 install is working correctly.
+Section 3: Compiling OpenCV 3.0 with Python 3+ support
+
+First up: Install the Python 3 header files so we can compile the OpenCV 3.0 bindings:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo apt-get install python3-dev
+1
+	
+$ sudo apt-get install python3-dev
+
+Timings: 54s
+
+Install pip , ensuring that it is compatible with Python 3 (note that I am executing python3  rather than just python ):
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ sudo python3 get-pip.py
+1
+2
+	
+$ wget https://bootstrap.pypa.io/get-pip.py
+$ sudo python3 get-pip.py
+
+Timings: 28s
+
+Just like in the original tutorial on installing OpenCV 2.4.X on your Raspberry Pi 2, we are going to make use of virtualenv and virtualenvwrapper. Again, this is not a requirement to get OpenCV 3.0 installed on your system, but I highly recommend that you use these packages to manage your Python environments. Furthermore, the rest of this tutorial will assume you are using virtualenv  and virtualenvwrapper .
+
+Use the pip3  command to install virtualenv  and virtualenvwrapper :
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo pip3 install virtualenv virtualenvwrapper
+1
+	
+$ sudo pip3 install virtualenv virtualenvwrapper
+
+Timings: 17s
+
+Now that virtualenv  and virtualenvwrapper  are installed on our system, we need to update our ~/.profile  file that is loaded each time we launch a terminal. Open up your ~/.profile  file in your favorite text editor (if it doesn’t exist create it) and add in the following lines:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+# virtualenv and virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+1
+2
+3
+4
+	
+# virtualenv and virtualenvwrapper
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export WORKON_HOME=$HOME/.virtualenvs
+source /usr/local/bin/virtualenvwrapper.sh
+
+In order to make the changes to our ~/.profile  file take affect, you can either (1) logout and log back in, (2) close your current terminal and open up a new one, or (3) simply use the source  command:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ source ~/.profile
+1
+	
+$ source ~/.profile
+
+Let’s create our cv  virtual environment where OpenCV will be compiled and accessed from:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ mkvirtualenv cv
+1
+	
+$ mkvirtualenv cv
+
+Timings: 19s
+
+Note: I gathered the Python 2.7+ and Python 3+ install instructions on the same Raspberry Pi so I could not use the same virtual environment name for each installation. In this case, the cv3  virtual environment refers to my Python 2.7 environment and the cv  virtual environment refers to my Python 3+ environment. You can name these environments whatever you wish, I simply wanted to offer a clarification and hopefully remove any confusion.
+
+This command will create your cv  virtual environment which is entirely independent of the system Python install. If you ever need to access this virtual environment, just use the workon  command:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ workon cv
+1
+	
+$ workon cv
+
+And you’ll be dropped down into your cv  virtual environment.
+
+Anyway, the only Python dependency we need is NumPy, so ensure that you are in the cv  virtual environment and install NumPy:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ pip install numpy
+1
+	
+$ pip install numpy
+
+Timings 13m 47s
+
+If for some reason your .cache  directory is giving you a Permission denied error, just remove it and re-install NumPy, otherwise you can skip this step:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo rm -rf ~/.cache/pip/
+$ pip install numpy
+1
+2
+	
+$ sudo rm -rf ~/.cache/pip/
+$ pip install numpy
+
+At this point you should have a nice clean install of NumPy, like this:
+Figure 3: NumPy has been successfully installed for Python 2.7 in the cv virtual environment.
+
+Figure 4: NumPy has been successfully installed for Python 3+ in the cv virtual environment.
+
+Alright, it’s taken awhile, but we are finally ready to compile OpenCV 3.0 with Python 3+ bindings on your Raspberry Pi.
+
+It’s important to note that if you have logged out or rebooted, that you will need to drop back into your cv  virtual environment before compiling OpenCV 3.0. If you do not, OpenCV 3.0 will not compile and install correctly and you’ll be scratching your head in confusion when you try to import OpenCV and get the dreaded ImportError: No module named cv2  error.
+
+So again, before you run any other command in this section, you’ll want to ensure that you are in the cv  virtual environment:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ workon cv
+1
+	
+$ workon cv
+
+After you are in the cv  virtual environment, we can setup our build:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~/opencv
+$ mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_C_EXAMPLES=ON \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D BUILD_EXAMPLES=ON ..
+1
+2
+3
+4
+5
+6
+7
+8
+9
+	
+$ cd ~/opencv
+$ mkdir build
+$ cd build
+$ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+	-D CMAKE_INSTALL_PREFIX=/usr/local \
+	-D INSTALL_C_EXAMPLES=ON \
+	-D INSTALL_PYTHON_EXAMPLES=ON \
+	-D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib/modules \
+	-D BUILD_EXAMPLES=ON ..
+
+Update (3 January 2016): In order to build OpenCV 3.1.0 , you need to set -D INSTALL_C_EXAMPLES=OFF  (rather than ON ) in the cmake  command. There is a bug in the OpenCV v3.1.0 CMake build script that can cause errors if you leave this switch on. Once you set this switch to off, CMake should run without a problem.
+
+After CMake has run, take a second to inspect the output of the make configuration, paying close attention to the Python 3 section:
+Figure 4: Definitely take the time to ensure that CMake has found the correct Python 3+ interpreter before continuing on to compile OpenCV 3.0.
+
+Figure 5: Definitely take the time to ensure that CMake has found the correct Python 3+ interpreter before continuing on to compile OpenCV 3.0.
+
+Specifically, you’ll want to make sure that CMake has picked up your Python 3 interpreter!
+
+Since we are compiling OpenCV 3.0 with Python 3 bindings, I’m going to examine the Python 3 section and ensure that my Interpreter  and numpy  paths point to my cv  virtual environment. And as you can see from above, they do.
+
+Also, take special note of the packages path  configuration — this is the path to the directory where your OpenCV 3.0 bindings will be compiled and stored. After the running the make  command (detailed below), you’ll be checking in this directory for your OpenCV 3.0 bindings. In this case,  my packages path  is lib/python3.2/site-packages , so I’ll be checking /usr/local/lib/python3.2/site-packages  for my compiled output file.
+
+All that’s left now is to compile OpenCV 3.0:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ make -j4
+1
+	
+$ make -j4
+
+Where the 4 corresponds to the 4 cores on our Raspberry Pi 2. Using multiple cores will dramatically speedup the compile time and bring it down from 2.8 hours to just above 1 hour!
+
+Timings: 65m 33s
+
+Assuming OpenCV has compiled without an error, you can now install it on your Raspberry Pi:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ sudo make install
+$ sudo ldconfig
+1
+2
+	
+$ sudo make install
+$ sudo ldconfig
+
+Timings: 39s
+
+At this point OpenCV 3.0 has been installed on our Raspberry Pi!
+
+However, we’re not quite done yet.
+
+Remember how I mentioned the packages path  above?
+
+Well, let’s list the contents of that directory and see if our OpenCV bindings are in there:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ ls -l /usr/local/lib/python3.2/site-packages
+total 1416
+-rw-r--r-- 1 root staff 1447637 Jun 22 18:26 cv2.cpython-32mu.so
+1
+2
+3
+	
+$ ls -l /usr/local/lib/python3.2/site-packages
+total 1416
+-rw-r--r-- 1 root staff 1447637 Jun 22 18:26 cv2.cpython-32mu.so
+
+Here we can see there is a file named cv2.cpython-32mu.so , which is our actual Python bindings.
+
+However, in order to use OpenCV 3.0 in our cv  virtual environment, we first need to sym-link the OpenCV binary into the site-packages  directory of the cv  environment:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ cd ~/.virtualenvs/cv/lib/python3.2/site-packages/
+$ ln -s /usr/local/lib/python3.2/site-packages/cv2.cpython-32mu.so cv2.so
+1
+2
+	
+$ cd ~/.virtualenvs/cv/lib/python3.2/site-packages/
+$ ln -s /usr/local/lib/python3.2/site-packages/cv2.cpython-32mu.so cv2.so
+
+So now when you list the contents of the site-packages  directory associated with our cv  virtual environment, you’ll see our OpenCV 3.0 bindings (the cv2.so  file):
+Figure 5: A good validation step to take is to list the contents of the site-packages directory for the cv virtual environment. You should see your cv2.so file sym-linked into the directory.
+
+Figure 6: A good validation step to take is to list the contents of the site-packages directory for the cv virtual environment. You should see your cv2.so file sym-linked into the directory.
+
+And there you have it! OpenCV 3.0 with Python 3+ support is now successfully installed on your system!
+Section 4: Verifying your OpenCV 3.0 install
+
+Before we wrap this tutorial up, let’s ensure that our OpenCV bindings have installed correctly. Open up a terminal, enter the cv  virtual environment (or cv3 , if you followed the Python 2.7+ install steps), fire up your Python shell import OpenCV:
+Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
+Shell
+$ workon cv
+$ python
+>>> import cv2
+>>> cv2.__version__
+'3.0.0'
+1
+2
+3
+4
+5
+	
+$ workon cv
+$ python
+>>> import cv2
+>>> cv2.__version__
+'3.0.0'
+
+And sure enough, we can see OpenCV 3.0 with Python 3+ support has been installed on my Raspberry Pi:
+Figure 6: Success! OpenCV 3.0 with Python bindings has been successfully installed on our Raspberry Pi 2!
+
+Figure 7: Success! OpenCV 3.0 with Python bindings has been successfully installed on our Raspberry Pi 2!
+So, what’s next?
+
+Congrats! You have a brand new, fresh install of OpenCV on your Raspberry Pi — and I’m sure you’re just itching to leverage your Raspberry Pi to build some awesome computer vision apps.
+
+But I’m also willing to bet that you’re just getting started learning computer vision and OpenCV, and you’re probably feeling a bit confused and overwhelmed on where exactly to start.
+
+Personally, I’m a big fan of learning by example, so a good first step would be to read this blog post on accessing your Raspberry Pi Camera with the picamera module. This tutorial details the exact steps you need to take to (1) capture photos from the camera module and (2) access the raw video stream.
+
+And if you’re really interested in leveling-up your computer vision skills, you should definitely check out my book, Practical Python and OpenCV + Case Studies. My book not only covers the basics of computer vision and image processing, but also teaches you how to solve real world computer vision problems including face detection in images and video streams, object tracking in video, and handwriting recognition.
+
+raspberry_pi_in_post
+
+All code examples covered in the book are guaranteed to run on the Raspberry Pi 2 and Pi 3 as well! Most programs will also run on the B+ and Zero models, but might be a bit slow due to the limited computing power of the B+ and Zero.
+
+So let’s put your fresh install of OpenCV on your Raspberry Pi to good use — just click here to learn more about the real-world projects you can solve using your Raspberry Pi + Practical Python and OpenCV .
+Summary
+
+In this blog post, I have detailed how to install OpenCV 3.0 with Python 2.7+ and Python 3+ bindings on your Raspberry Pi 2. Timings for each installation step were also provided so you could plan your install accordingly. Just keep in mind that if you ever logout or reboot your Pi after setting up virtualenv  and virtualenvwrapper  that you’ll need to execute the workon  command to re-access your computer vision virtual environment prior to continuing the steps I have detailed. If you do not, you could easily find yourself in a situation with the dreaded ImportError: No module named cv2  error.
+
+As the Raspberry Pi and the Raspbian/NOOBS operating system evolves, so will our installation instructions. If you run across any edge cases, please feel free to let me know so I can keep these install instructions updated.
+
+And of course, in future blog posts we’ll be doing some really amazing projects using OpenCV 3.0 and the Raspberry Pi, so consider entering your email address in the form below to be notified when these posts go live!
+Resource Guide (it’s totally free).
+
+[Get your FREE 11-page Image Search Engine Resource Guide PDF]
+Enter your email address below to get my free 11-page Image Search Engine Resource Guide PDF. Uncover exclusive techniques that I don't publish on this blog and start building image search engines of your own!
+
+install, opencv 3.0, pi 2, python 2.7, python 3.4, raspberry pi, tutorials
+Install OpenCV 3.0 and Python 3.4+ on Ubuntu
+Deep dream: Visualizing every layer of GoogLeNet
