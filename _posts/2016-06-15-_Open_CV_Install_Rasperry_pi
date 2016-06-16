@@ -1,4 +1,12 @@
 
+layout 	title
+post
+	
+Raspberry Pi running debian jessie
+
+static Open CV
+
+
 Installing OpenCV 3.0 for both Python 2.7 and Python 3+ on your Raspberry Pi 2
 By Adrian Rosebrock on July 27, 2015 in OpenCV 3, Tutorials
 0
