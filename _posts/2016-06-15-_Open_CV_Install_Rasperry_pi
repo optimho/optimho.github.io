@@ -1,7 +1,9 @@
 
-layout 	title
-post
-	
+---
+layout: post
+title: OpenCv 3 on jessy raspberry Pi 
+---
+ 
 Raspberry Pi running debian jessie
 
 static Open CV
